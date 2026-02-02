@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<climits>
 
 int prim(std::vector<std::vector<int>>& Weight, int n){
     std::vector<int> minCost(n+1, INT_MAX);
@@ -8,13 +9,13 @@ int prim(std::vector<std::vector<int>>& Weight, int n){
     
     minCost[1] = 0;
     
-    for(int i = 1; i <= n; i++){
+    for(int i = 0; i < n; i++){
         int u = -1;
         int minWeight = INT_MAX;
         
         for(int v = 1; v <= n; v++){
-            if(!visited[v] && Weight[i][v] < minWeight){
-                minWeight = Weight[i][v];
+            if(!visited[v] && minCost[v] < minWeight){
+                minWeight = minCost[v];
                 u = v;
             }
         }
