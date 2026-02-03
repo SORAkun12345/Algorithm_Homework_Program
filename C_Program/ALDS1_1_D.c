@@ -45,36 +45,52 @@ FX取引では、異なる国の通貨を交換することで為替差の利益
 
 #include<stdio.h>
 
+// 最大の価格差を計算する関数
 int difference(int x[],int n);
 
 int main(){
     int n;
+    // 価格データの個数を読み込む
     scanf("%d",&n);
 
+    // 各時刻での価格を格納する配列
     int x[n];
 
+    // 価格データをn個読み込む
     for(int i = 0; i < n; i++){
         scanf("%d",&x[i]);
     }
 
+    // 最大の利益（価格差）を計算
     int differences = difference(x,n);
+    // 結果を出力
     printf("%d\n",differences);
 
     return 0;
 }
 
 int difference(int x[],int n){
+    // minv: これまで見た価格の最小値（買値の最小値）
     int minv = x[0];
+    // maxv: これまでの最大の価格差
+    // x[1] - x[0]: 最初のタイミングでの売却益
     int maxv = x[1] - x[0];
 
+    // i=1 から開始して各価格をチェック
     for(int i = 1; i < n; i++){
+        // 現在の価格 x[i] からこれまでの最小価格 minv を引いた値
+        // が最大の価格差より大きければ更新
         if (maxv < x[i] - minv){
             maxv = x [i] - minv;
         }
 
+        // minv を更新：現在の価格 x[i] がこれまでより小さければ minv を更新
+        // これによって「過去のどの時点で購入し、今売れば利益が最大か」を追跡
         if (minv > x[i]){
             minv = x[i];
         }
     }
+    // 最大の価格差を返す
+    // 注: すべての価格が下降している場合は負の値となる
     return maxv;    
 }

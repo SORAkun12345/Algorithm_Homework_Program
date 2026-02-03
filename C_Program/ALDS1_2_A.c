@@ -38,39 +38,57 @@
 
 #include<stdio.h>
 
+#include<stdio.h>
+
+// バブルソートで配列を昇順に並び変え、交換回数を返す関数
 int bubbleSort(int x[],int n){
     int count = 0, flag = 1;
 
+    // flag が 1 の間ループ継続（交換が発生した場合）
     while(flag){
+        // 各ループの開始時に flag を 0 に初期化
         flag = 0;
+        // 末尾から先頭へ向かって隣接要素を比較
         for(int i = n - 1; i > 0; i--){
+            // 左の要素が右より大きい場合、入れ替える
             if(x[i] < x[i - 1]){
+                // 一時変数を使って x[i] と x[i-1] を交換
                 int temp = x[i];
                 x[i] = x[i - 1];
                 x[i - 1] = temp;
+                // 交換回数をカウント
                 count++;
+                // 交換が発生したので flag = 1 に設定
                 flag = 1;
             }
         }
+        // ループの最後でフラグが 0 なら交換なし = ソート完了
     }
     return count;
 }
 
 int main(){
     int n;
+    // 配列の長さを読み込む
     scanf("%d",&n);
 
+    // n個の要素を格納する配列
     int x[n];
+    // 配列要素を読み込む
     for(int i = 0; i < n; i++){
         scanf("%d",&x[i]);
     }
 
+    // バブルソートを実行し、交換回数を取得
     int count = bubbleSort(x,n);
 
+    // ソート済み配列を出力（要素間にスペースを挿入）
     for(int i = 0; i < n; i++){
+        // i > 0 の場合、要素の前にスペースを挿入
         if(i) printf(" ");
         printf("%d",x[i]);
     }
+    // 改行の後、交換回数を出力
     printf("\n%d\n",count);
 
     return 0;

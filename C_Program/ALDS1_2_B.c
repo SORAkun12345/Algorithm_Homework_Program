@@ -39,22 +39,31 @@
 
 #include<stdio.h>
 
+// 選択ソートで配列を昇順に並び変え、交換回数を返す関数
 int selectionSort(int x[],int n){
     int count = 0;
     int minj,temp;
 
+    // 各位置 i に対して最小値を探す
     for(int i = 0;i < n;i++){
+        // 位置 i を最小値の位置として初期化
         minj = i;
+        // i から n-1 までの範囲で最小値を探す
         for(int j = i; j < n; j++){
+            // x[j] が現在の最小値 x[minj] より小さければ
             if(x[j] < x[minj]){
+                // minj を j に更新（最小値の位置を更新）
                 minj = j;
             }
         }
+        // 最小値が現在位置 i と異なる場合、交換を実行
         if(i != minj){
-        temp = x[minj];
-        x[minj] = x[i];
-        x[i] = temp;
-        count++;
+            // 一時変数を使って x[i] と x[minj] を交換
+            temp = x[minj];
+            x[minj] = x[i];
+            x[i] = temp;
+            // 実際に交換が行われた回数をカウント
+            count++;
         }
     }
     return count;
@@ -62,19 +71,26 @@ int selectionSort(int x[],int n){
 
 int main(){
     int n;
+    // 配列の長さを読み込む
     scanf("%d",&n);
 
+    // n個の要素を格納する配列
     int x[n];
+    // 配列要素を読み込む
     for(int i = 0; i < n; i++){
         scanf("%d",&x[i]);
     }
 
+    // 選択ソートを実行し、交換回数を取得
     int count = selectionSort(x,n);
 
+    // ソート済み配列を出力（要素間にスペースを挿入）
     for(int i = 0; i < n; i++){
+        // i > 0 の場合、要素の前にスペースを挿入
         if(i) printf(" ");
         printf("%d",x[i]);
     }
+    // 改行の後、交換回数を出力
     printf("\n%d\n",count);
 
     return 0;

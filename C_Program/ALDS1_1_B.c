@@ -25,28 +25,42 @@ x と y が１つの空白区切りで１行に与えられます。
 */
 #include <stdio.h>
 
+// 最大公約数を計算する関数の宣言
 int gcd(int x, int y);
 
 int main() {
     int x, y;
+    // 2つの整数を読み込む
     scanf("%d %d", &x, &y);
 
+    // gcd関数を呼び出して最大公約数を計算
     int result = gcd(x, y);
+    
+    // 結果を出力
     printf("%d\n", result);
 
     return 0;
 }
 
+// ユークリッドの互除法を用いて最大公約数（GCD）を求める関数
+// 原理: x ≥ y のとき、gcd(x,y) = gcd(y, x%y)
+// y=0 になった時点での x が最大公約数となる
 int gcd(int x, int y){
     int tmp;
+    
+    // x < y の場合は値を入れ替える（x ≥ y に統一）
     if (x < y) {
         tmp = x;
         x = y;
         y = tmp;
     }
 
+    // ベースケース: y が 0 になったら x が最大公約数
     if (y == 0) {
         return x;
     }
+    
+    // 再帰呼び出し: (y, x%y) の最大公約数を求める
+    // 例: gcd(147, 105) → gcd(105, 42) → gcd(42, 21) → gcd(21, 0) = 21
     return gcd(y, x % y);
 }
